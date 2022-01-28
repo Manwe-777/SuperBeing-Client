@@ -1,9 +1,7 @@
 import axios from 'axios';
-import React, { } from 'react';
-import { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
-const AgentEditor = ({ data, handleClick }) => {
+const Personality = ({ data, handleClick }) => {
     const [dataUpdated, setDataUpdated] = useState(false);
 
     const update = async () => {
@@ -23,9 +21,6 @@ const AgentEditor = ({ data, handleClick }) => {
 
     return (
         <div style={{minWidth:"80%"}}>
-            <div className="back">
-                <a style={{margin:"1em"}} onClick={() => handleClick()} >Back</a>
-            </div>
             <form>
                 <h2>Agent: {data.agentName}</h2>
                 <div className="form-item">
@@ -84,6 +79,11 @@ const AgentEditor = ({ data, handleClick }) => {
                     <textarea className="form-text-area" onChange={(e) => { setDataUpdated(true); data.ignoredKeywords = e.target.value }} defaultValue={data.ignoredKeywords}></textarea>
                 </div>
 
+                <div className="form-item">
+                    <span className="form-item-label">Ignored Keywords:</span>
+                    <textarea className="form-text-area" onChange={(e) => { setDataUpdated(true); data.agentsConfig = e.target.value }} defaultValue={data.agentsConfig}></textarea>
+                </div>
+
                 <input type='button' value='Update' onClick={update} />
                 <input type='button' value='Delete' onClick={() => {
                     axios.post(`${process.env.VITE_SERVER_CONNECTION_URL}/delete_agent`, { agentName: data.agentName }).then(res => {
@@ -95,4 +95,4 @@ const AgentEditor = ({ data, handleClick }) => {
     );
 };
 
-export default AgentEditor;
+export default Personality;
